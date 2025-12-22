@@ -43,6 +43,44 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 
+/* NAVBAR BASE */
+.navbar {
+    background-color: #4b1e1e;
+    padding: 14px 20px;
+}
+
+.nav-brand {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h1 {
+    color: white;
+    font-size: 22px;
+}
+
+/* LINKS */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* HAMBURGER (hidden on desktop) */
+.hamburger {
+    display: none;
+    font-size: 26px;
+    color: white;
+    cursor: pointer;
+}
+
+
 /* Page container */
 .container {
     padding: 40px;
