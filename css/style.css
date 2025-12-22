@@ -430,4 +430,28 @@ nav ul li a.active {
     /* ABOUT PAGE TEXT */
     .about-content,
 
+    /* MOBILE NAVBAR */
+@media (max-width: 768px) {
+
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        margin-top: 15px;
+        background-color: #4b1e1e;
+        padding: 10px 0;
+    }
+
+    .nav-links li {
+        padding: 10px 20px;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+}
+
 
