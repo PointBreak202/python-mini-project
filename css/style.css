@@ -58,18 +58,25 @@ body {
         display: block;
     }
 
-    /* HIDE MENU BY DEFAULT */
+    /* DROPDOWN MENU */
     .nav-links {
         display: none;
         flex-direction: column;
         width: 100%;
-        margin-top: 12px;
+        margin-top: 8px;              /* reduced */
         background-color: #4b1e1e;
         border-top: 1px solid rgba(255,255,255,0.2);
+        padding: 4px 0;               /* reduced */
     }
 
     .nav-links li {
-        padding: 12px 0;
+        padding: 6px 0;               /* reduced */
+    }
+
+    .nav-links li a {
+        padding: 6px 18px;            /* tighter tap area */
+        display: block;
+        font-size: 15px;
     }
 
     /* SHOW MENU WHEN TOGGLED */
@@ -77,8 +84,6 @@ body {
         display: flex;
     }
 }
-
-
 
 /* Page container */
 .container {
