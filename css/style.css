@@ -255,27 +255,32 @@ nav ul li a.active {
 @media (max-width: 768px) {
     .hero {
         flex-direction: column;
-        padding: 40px 20px;
-        text-align: center;
+        padding: 30px 20px;
+        gap: 20px;
     }
 
     .hero-text {
         max-width: 100%;
+        text-align: left;
     }
 
     .hero-text h1 {
-        font-size: 32px;
+        font-size: 34px;
+        line-height: 1.2;
     }
 
     .hero-text p {
-        font-size: 16px;
+        font-size: 15px;
+        margin-bottom: 20px;
     }
 
     .hero-image img {
         width: 100%;
-        margin-top: 25px;
+        border-radius: 14px;
+        margin: 0;
     }
 }
+
 
 /* FEATURES MOBILE */
 @media (max-width: 768px) {
@@ -287,14 +292,18 @@ nav ul li a.active {
 
 /* MENU MOBILE */
 @media (max-width: 768px) {
-    .menu-grid {
-        grid-template-columns: 1fr;
+    .features {
+        flex-direction: column;
+        padding: 30px 20px;
+        background: #fff5ec;
+        gap: 16px;
     }
 
-    .menu-card img {
-        height: 160px;
+    .feature-card {
+        box-shadow: 0 6px 14px rgba(0,0,0,0.08);
     }
 }
+
 
 @media (max-width: 768px) {
     .container {
@@ -305,4 +314,29 @@ nav ul li a.active {
         font-size: 26px;
     }
 }
+
+@media (max-width: 768px) {
+    .feature-card {
+        background: #fff;
+    }
+}
+
+@media (max-width: 768px) {
+    .primary-btn {
+        width: auto;
+        padding: 12px 22px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    h2 {
+        font-size: 24px;
+    }
+
+    p {
+        line-height: 1.6;
+    }
+}
+
 
