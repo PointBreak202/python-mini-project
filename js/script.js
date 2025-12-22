@@ -14,3 +14,8 @@ function likeGallery() {
 function openImage(img) {
     window.open(img.src, "_blank");
 }
+
+function toggleMenu() {
+    const navLinks = document.getElementById("navLinks");
+    navLinks.classList.toggle("show");
+}
