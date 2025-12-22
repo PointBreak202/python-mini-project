@@ -251,3 +251,58 @@ nav ul li a.active {
     }
 }
 
+/* HERO MOBILE FIX */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .hero-text {
+        max-width: 100%;
+    }
+
+    .hero-text h1 {
+        font-size: 32px;
+    }
+
+    .hero-text p {
+        font-size: 16px;
+    }
+
+    .hero-image img {
+        width: 100%;
+        margin-top: 25px;
+    }
+}
+
+/* FEATURES MOBILE */
+@media (max-width: 768px) {
+    .features {
+        flex-direction: column;
+        padding: 20px;
+    }
+}
+
+/* MENU MOBILE */
+@media (max-width: 768px) {
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-card img {
+        height: 160px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+}
+
