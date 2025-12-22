@@ -7,16 +7,23 @@
 </head>
 <body>
 
-<nav>
-    <h1>Club Cafe</h1>
-    <ul>
+<nav class="navbar">
+    <div class="nav-brand">
+        <h1>Club Cafe</h1>
+        <div class="hamburger" onclick="toggleMenu()">
+            ☰
+        </div>
+    </div>
+
+    <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
         <li><a href="menu.html">Menu</a></li>
-        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
     </ul>
 </nav>
+
 
 <div class="container">
     <h2>Our Gallery</h2>
@@ -38,5 +45,6 @@
 <script src="js/script.js"></script>
 </body>
 </html>
+
 
 
