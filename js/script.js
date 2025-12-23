@@ -38,27 +38,30 @@ function toggleMenu() {
 document.addEventListener("DOMContentLoaded", () => {
 
     /* ---------- ORDER FORM ---------- */
+    document.addEventListener("DOMContentLoaded", () => {
+
     const form = document.getElementById("orderForm");
+    if (!form) return;
 
-    if (form) {
-        form.addEventListener("submit", function (e) {
-            e.preventDefault();
+    form.addEventListener("submit", function () {
 
-            const order = {
-                name: document.getElementById("customerName").value.trim(),
-                cake: document.getElementById("cakeName").value,
-                weight: document.getElementById("weight").value,
-                message:
-                    document.getElementById("message").value.trim() || "None",
-                date: document.getElementById("date").value
-            };
+        const order = {
+            name: document.getElementById("customerName").value.trim(),
+            cake: document.getElementById("cakeName").value,
+            weight: document.getElementById("weight").value,
+            message:
+                document.getElementById("message").value.trim() || "None",
+            date: document.getElementById("date").value
+        };
 
-            localStorage.setItem("latestOrder", JSON.stringify(order));
+        localStorage.setItem("latestOrder", JSON.stringify(order));
 
-            // DESKTOP-WORKING REDIRECT
-            window.location.href = "order-summary.html";
-        });
-    }
+        // IMPORTANT:
+        // ❌ No preventDefault
+        // ❌ No window.location
+        // Browser handles navigation
+    });
+});
 
     /* ---------- ORDER SUMMARY ---------- */
     const summaryBox = document.getElementById("summaryBox");
