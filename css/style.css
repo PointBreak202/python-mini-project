@@ -417,6 +417,12 @@ nav ul li a.active {
     /* ABOUT PAGE TEXT */
     .about-content,
 
+    select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
   
 
 
