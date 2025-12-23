@@ -39,3 +39,22 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("latestOrder", JSON.stringify(order));
     });
 });
+
+function sendToWhatsApp() {
+    const order = JSON.parse(localStorage.getItem("latestOrder"));
+    if (!order) return;
+
+    const phoneNumber = "918956161106"; // replace if needed
+
+    const message = `Hello Club Cafe! 🍰
+I would like to place an order:
+
+Name: ${order.name}
+Cake: ${order.cake}
+Weight: ${order.weight} kg
+Message on Cake: ${order.message}
+Delivery Date: ${order.date}`;
+
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.location.href = url;
+}
