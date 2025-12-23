@@ -25,10 +25,23 @@ function openImage(img) {
 
 function toggleMenu() {
     const navLinks = document.getElementById("navLinks");
-    if (navLinks) {
-        navLinks.classList.toggle("show");
-    }
+    if (!navLinks) return;
+
+    navLinks.classList.toggle("show");
 }
+
+// CLOSE MENU WHEN ANY LINK IS CLICKED (MOBILE FIX)
+document.addEventListener("click", function (e) {
+    const navLinks = document.getElementById("navLinks");
+    const hamburger = document.querySelector(".hamburger");
+
+    if (!navLinks || !hamburger) return;
+
+    if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+        navLinks.classList.remove("show");
+    }
+});
+
 
 /* =========================
    MAIN LOGIC (RUNS ON LOAD)
@@ -66,7 +79,10 @@ if (orderForm) {
             return;
         }
 
-        window.location.href = "order-summary.html";
+        setTimeout(() => {
+    window.location.href = "order-summary.html";
+}, 100);
+
     });
 }
 
@@ -99,21 +115,25 @@ if (summaryBox) {
 
 function sendToWhatsApp() {
     const order = JSON.parse(localStorage.getItem("latestOrder"));
-    if (!order) return;
+    if (!order) {
+        alert("No order found.");
+        return;
+    }
 
-    const phoneNumber = "918956161106"; // replace if needed
+    const phoneNumber = "918956161106";
 
-    const message = `Hello Club Cafe! 🍰
-I would like to place an order:
-
+    const message =
+`Hello Club Cafe!
 Name: ${order.name}
 Cake: ${order.cake}
 Weight: ${order.weight} kg
-Message on Cake: ${order.message}
+Message: ${order.message}
 Delivery Date: ${order.date}`;
 
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
+    const encoded = encodeURIComponent(message);
+    const url = `https://wa.me/${phoneNumber}?text=${encoded}`;
+
+    window.location.assign(url);
 }
 
 
