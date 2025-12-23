@@ -39,46 +39,59 @@ document.addEventListener("DOMContentLoaded", () => {
     /* ---------- ORDER FORM ---------- */
     const orderForm = document.getElementById("orderForm");
 
-    if (orderForm) {
-        orderForm.addEventListener("submit", function (e) {
-            e.preventDefault();
+if (orderForm) {
+    orderForm.addEventListener("submit", function (e) {
+        e.preventDefault();
 
-            const order = {
-                name: document.getElementById("customerName")?.value.trim() || "",
-                cake: document.getElementById("cakeName")?.value || "",
-                weight: document.getElementById("weight")?.value || "",
-                message: document.getElementById("message")?.value.trim() || "None",
-                date: document.getElementById("date")?.value || ""
-            };
+        const name = document.getElementById("customerName").value.trim();
+        const cake = document.getElementById("cakeName").value;
+        const weight = document.getElementById("weight").value;
+        const message = document.getElementById("message").value.trim() || "None";
+        const date = document.getElementById("date").value;
 
-            // Save only latest order (used for summary + WhatsApp)
-            localStorage.setItem("latestOrder", JSON.stringify(order));
+        if (!name || !cake || !date) {
+            alert("Please fill all required fields.");
+            return;
+        }
 
-            // Redirect to summary page
-            window.location.href = "order-summary.html";
-        });
-    }
+        const order = { name, cake, weight, message, date };
+
+        console.log("Saving order:", order);
+
+        localStorage.setItem("latestOrder", JSON.stringify(order));
+
+        // HARD CONFIRM SAVE
+        if (!localStorage.getItem("latestOrder")) {
+            alert("Order could not be saved. Try again.");
+            return;
+        }
+
+        window.location.href = "order-summary.html";
+    });
+}
+
 
     /* ---------- ORDER SUMMARY ---------- */
     const summaryBox = document.getElementById("summaryBox");
 
-    if (summaryBox) {
-        const order = JSON.parse(localStorage.getItem("latestOrder"));
+if (summaryBox) {
+    const order = JSON.parse(localStorage.getItem("latestOrder"));
 
-        if (!order) {
-            summaryBox.innerHTML = "<p>No order found.</p>";
-            return;
-        }
-
-        summaryBox.innerHTML = `
-            <p><strong>Name:</strong> ${order.name}</p>
-            <p><strong>Cake:</strong> ${order.cake}</p>
-            <p><strong>Weight:</strong> ${order.weight} kg</p>
-            <p><strong>Message:</strong> ${order.message}</p>
-            <p><strong>Delivery Date:</strong> ${order.date}</p>
-        `;
+    if (!order || !order.name || !order.cake) {
+        alert("No order found. Please place an order first.");
+        window.location.href = "order.html";
+        return;
     }
-});
+
+    summaryBox.innerHTML = `
+        <p><strong>Name:</strong> ${order.name}</p>
+        <p><strong>Cake:</strong> ${order.cake}</p>
+        <p><strong>Weight:</strong> ${order.weight} kg</p>
+        <p><strong>Message:</strong> ${order.message}</p>
+        <p><strong>Delivery Date:</strong> ${order.date}</p>
+    `;
+}
+
 
 /* =========================
    WHATSAPP ORDER REDIRECT
