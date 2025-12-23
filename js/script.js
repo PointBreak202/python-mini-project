@@ -1,7 +1,3 @@
-/* =========================
-   BASIC UI FUNCTIONS
-========================= */
-
 function welcomeMessage() {
     alert("Welcome to Club Cafe! Check out our delicious menu.");
 }
@@ -19,78 +15,35 @@ function openImage(img) {
     window.open(img.src, "_blank");
 }
 
-/* =========================
-   NAVBAR (HAMBURGER)
-========================= */
-
 function toggleMenu() {
     const navLinks = document.getElementById("navLinks");
-    if (navLinks) {
-        navLinks.classList.toggle("show");
-    }
+    navLinks.classList.toggle("show");
 }
 
-/* =========================
-   ORDER FORM + SUMMARY
-   (DESKTOP WORKING VERSION)
-========================= */
-
 document.addEventListener("DOMContentLoaded", () => {
-
-    /* ---------- ORDER FORM ---------- */
-    document.addEventListener("DOMContentLoaded", () => {
-
     const form = document.getElementById("orderForm");
     if (!form) return;
 
-    form.addEventListener("submit", function () {
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
 
         const order = {
-            name: document.getElementById("customerName").value.trim(),
+            name: document.getElementById("customerName").value,
             cake: document.getElementById("cakeName").value,
             weight: document.getElementById("weight").value,
-            message:
-                document.getElementById("message").value.trim() || "None",
+            message: document.getElementById("message").value,
             date: document.getElementById("date").value
         };
 
-        localStorage.setItem("latestOrder", JSON.stringify(order));
+        let orders = JSON.parse(localStorage.getItem("orders")) || [];
+        orders.push(order);
+        localStorage.setItem("orders", JSON.stringify(orders));
 
-        // IMPORTANT:
-        // ❌ No preventDefault
-        // ❌ No window.location
-        // Browser handles navigation
+        alert("🎂 Order placed successfully!");
+
+        form.reset();
     });
 });
-
-    /* ---------- ORDER SUMMARY ---------- */
-    const summaryBox = document.getElementById("summaryBox");
-
-    if (summaryBox) {
-        const order = JSON.parse(localStorage.getItem("latestOrder"));
-
-        if (!order) {
-            summaryBox.innerHTML = "<p>No order found.</p>";
-            return;
-        }
-
-        summaryBox.innerHTML = `
-            <p><strong>Name:</strong> ${order.name}</p>
-            <p><strong>Cake:</strong> ${order.cake}</p>
-            <p><strong>Weight:</strong> ${order.weight} kg</p>
-            <p><strong>Message:</strong> ${order.message}</p>
-            <p><strong>Delivery Date:</strong> ${order.date}</p>
-        `;
-    }
-});
-
-/* =========================
-   WHATSAPP REDIRECT
-========================= */
-
-function sendToWhatsApp() {
-    const order = JSON.parse(localStorage.getItem("latestOrder"));
-    if (!ord
 
 
 
