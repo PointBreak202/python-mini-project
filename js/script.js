@@ -50,41 +50,56 @@ document.addEventListener("click", function (e) {
 document.addEventListener("DOMContentLoaded", () => {
 
     /* ---------- ORDER FORM ---------- */
+/* =========================
+   ORDER FORM LOGIC
+   (DESKTOP + MOBILE SAFE)
+========================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
     const orderForm = document.getElementById("orderForm");
 
-if (orderForm) {
-    orderForm.addEventListener("submit", function (e) {
-        e.preventDefault();
+    if (!orderForm) return; // runs only on order page
 
+    orderForm.addEventListener("submit", function (e) {
+        e.preventDefault(); // stop default submit
+
+        // Read values explicitly
         const name = document.getElementById("customerName").value.trim();
         const cake = document.getElementById("cakeName").value;
         const weight = document.getElementById("weight").value;
-        const message = document.getElementById("message").value.trim() || "None";
+        const message =
+            document.getElementById("message").value.trim() || "None";
         const date = document.getElementById("date").value;
 
+        // HARD VALIDATION (mobile-safe)
         if (!name || !cake || !date) {
-            alert("Please fill all required fields.");
+            alert("Please fill all required fields and confirm the date.");
             return;
         }
 
-        const order = { name, cake, weight, message, date };
+        // Order object
+        const order = {
+            name: name,
+            cake: cake,
+            weight: weight,
+            message: message,
+            date: date
+        };
 
-        console.log("Saving order:", order);
-
+        // Save order
         localStorage.setItem("latestOrder", JSON.stringify(order));
 
-        // HARD CONFIRM SAVE
-        if (!localStorage.getItem("latestOrder")) {
-            alert("Order could not be saved. Try again.");
-            return;
-        }
+        // ===== MOBILE-SAFE REDIRECT =====
+        // JS redirects often fail on mobile → use native form submit
+        const redirectForm = document.createElement("form");
+        redirectForm.method = "GET";
+        redirectForm.action = "order-summary.html";
 
-        setTimeout(() => {
-    window.location.href = "order-summary.html";
-}, 100);
-
+        document.body.appendChild(redirectForm);
+        redirectForm.submit();
     });
-}
+});
 
 
     /* ---------- ORDER SUMMARY ---------- */
