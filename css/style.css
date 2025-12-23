@@ -426,6 +426,15 @@ nav ul li a.active {
     margin-bottom: 15px;
 }
 
-  
+  .page-wrapper {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+}
+
+.page-wrapper .container {
+    flex: 1;
+}
+
 
 
