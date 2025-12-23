@@ -24,27 +24,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("orderForm");
     if (!form) return;
 
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
+    form.addEventListener("submit", function () {
 
         const order = {
-            name: document.getElementById("customerName").value,
+            name: document.getElementById("customerName").value.trim(),
             cake: document.getElementById("cakeName").value,
             weight: document.getElementById("weight").value,
-            message: document.getElementById("message").value,
+            message:
+                document.getElementById("message").value.trim() || "None",
             date: document.getElementById("date").value
         };
 
-        let orders = JSON.parse(localStorage.getItem("orders")) || [];
-        orders.push(order);
-        localStorage.setItem("orders", JSON.stringify(orders));
-
-        alert("🎂 Order placed successfully!");
-
-        form.reset();
+        // SAVE ORDER FOR SUMMARY PAGE
+        localStorage.setItem("latestOrder", JSON.stringify(order));
     });
 });
-
-
-
-
