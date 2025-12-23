@@ -1,3 +1,7 @@
+/* =========================
+   GENERAL UI FUNCTIONS
+========================= */
+
 function welcomeMessage() {
     alert("Welcome to Club Cafe! Check out our delicious menu.");
 }
@@ -15,91 +19,76 @@ function openImage(img) {
     window.open(img.src, "_blank");
 }
 
+/* =========================
+   NAVBAR (HAMBURGER MENU)
+========================= */
+
 function toggleMenu() {
     const navLinks = document.getElementById("navLinks");
-    navLinks.classList.toggle("show");
+    if (navLinks) {
+        navLinks.classList.toggle("show");
+    }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("orderForm");
-    if (!form) return;
-
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        const order = {
-            name: document.getElementById("customerName").value,
-            cake: document.getElementById("cakeName").value,
-            weight: document.getElementById("weight").value,
-            message: document.getElementById("message").value,
-            date: document.getElementById("date").value
-        };
-
-        let orders = JSON.parse(localStorage.getItem("orders")) || [];
-        orders.push(order);
-        localStorage.setItem("orders", JSON.stringify(orders));
-
-        alert("🎂 Order placed successfully!");
-
-        form.reset();
-    });
-});
+/* =========================
+   MAIN LOGIC (RUNS ON LOAD)
+========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("orderForm");
 
-    if (form) {
-        form.addEventListener("submit", function (e) {
+    /* ---------- ORDER FORM ---------- */
+    const orderForm = document.getElementById("orderForm");
+
+    if (orderForm) {
+        orderForm.addEventListener("submit", function (e) {
             e.preventDefault();
 
-            const nameInput = document.getElementById("customerName");
-            const cakeSelect = document.getElementById("cakeName");
-            const weightSelect = document.getElementById("weight");
-            const messageInput = document.getElementById("message");
-            const dateInput = document.getElementById("date");
-
             const order = {
-                name: nameInput.value.trim(),
-                cake: cakeSelect.value,
-                weight: weightSelect.value,
-                message: messageInput.value.trim() || "None",
-                date: dateInput.value
+                name: document.getElementById("customerName")?.value.trim() || "",
+                cake: document.getElementById("cakeName")?.value || "",
+                weight: document.getElementById("weight")?.value || "",
+                message: document.getElementById("message")?.value.trim() || "None",
+                date: document.getElementById("date")?.value || ""
             };
 
+            // Save only latest order (used for summary + WhatsApp)
             localStorage.setItem("latestOrder", JSON.stringify(order));
 
+            // Redirect to summary page
             window.location.href = "order-summary.html";
         });
     }
 
-    loadOrderSummary();
+    /* ---------- ORDER SUMMARY ---------- */
+    const summaryBox = document.getElementById("summaryBox");
+
+    if (summaryBox) {
+        const order = JSON.parse(localStorage.getItem("latestOrder"));
+
+        if (!order) {
+            summaryBox.innerHTML = "<p>No order found.</p>";
+            return;
+        }
+
+        summaryBox.innerHTML = `
+            <p><strong>Name:</strong> ${order.name}</p>
+            <p><strong>Cake:</strong> ${order.cake}</p>
+            <p><strong>Weight:</strong> ${order.weight} kg</p>
+            <p><strong>Message:</strong> ${order.message}</p>
+            <p><strong>Delivery Date:</strong> ${order.date}</p>
+        `;
+    }
 });
 
-function loadOrderSummary() {
-    const summaryBox = document.getElementById("summaryBox");
-    if (!summaryBox) return;
-
-    const order = JSON.parse(localStorage.getItem("latestOrder"));
-
-    if (!order) {
-        summaryBox.innerHTML = "<p>No order found.</p>";
-        return;
-    }
-
-    summaryBox.innerHTML = `
-        <p><strong>Name:</strong> ${order.name}</p>
-        <p><strong>Cake:</strong> ${order.cake}</p>
-        <p><strong>Weight:</strong> ${order.weight} kg</p>
-        <p><strong>Message:</strong> ${order.message}</p>
-        <p><strong>Delivery Date:</strong> ${order.date}</p>
-    `;
-}
+/* =========================
+   WHATSAPP ORDER REDIRECT
+========================= */
 
 function sendToWhatsApp() {
     const order = JSON.parse(localStorage.getItem("latestOrder"));
     if (!order) return;
 
-    const phoneNumber = "918956161106"; // replace with real number
+    const phoneNumber = "918956161106"; // replace if needed
 
     const message = `Hello Club Cafe! 🍰
 I would like to place an order:
@@ -113,5 +102,6 @@ Delivery Date: ${order.date}`;
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
 }
+
 
 
