@@ -34,6 +34,26 @@
 
 <footer>© 2025 Club Cafe</footer>
 
-<script src="js/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const summaryBox = document.getElementById("summaryBox");
+
+    const order = JSON.parse(localStorage.getItem("latestOrder"));
+
+    if (!order) {
+        summaryBox.innerHTML = "<p>No order found.</p>";
+        return;
+    }
+
+    summaryBox.innerHTML = `
+        <p><strong>Name:</strong> ${order.name}</p>
+        <p><strong>Cake:</strong> ${order.cake}</p>
+        <p><strong>Weight:</strong> ${order.weight} kg</p>
+        <p><strong>Message:</strong> ${order.message}</p>
+        <p><strong>Delivery Date:</strong> ${order.date}</p>
+    `;
+});
+</script>
+
 </body>
 </html>
