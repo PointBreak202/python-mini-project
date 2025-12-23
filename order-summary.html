@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary - Club Cafe</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-top">
+        <h1 class="logo">Club Cafe</h1>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </div>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="order.html">Order</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <h2>Order Summary</h2>
+
+    <div class="card" id="summaryBox">
+        <!-- Order details will load here -->
+    </div>
+
+    <button class="primary-btn" onclick="sendToWhatsApp()">
+        Confirm Order on WhatsApp
+    </button>
+</div>
+
+<footer>© 2025 Club Cafe</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
