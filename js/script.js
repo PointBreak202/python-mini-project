@@ -44,3 +44,68 @@ document.addEventListener("DOMContentLoaded", () => {
         form.reset();
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("orderForm");
+
+    if (form) {
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const order = {
+                name: document.getElementById("customerName").value,
+                cake: document.getElementById("cakeName").value,
+                weight: document.getElementById("weight").value,
+                message: document.getElementById("message").value,
+                date: document.getElementById("date").value
+            };
+
+            localStorage.setItem("latestOrder", JSON.stringify(order));
+
+            window.location.href = "order-summary.html";
+        });
+    }
+
+    loadOrderSummary();
+});
+
+function loadOrderSummary() {
+    const summaryBox = document.getElementById("summaryBox");
+    if (!summaryBox) return;
+
+    const order = JSON.parse(localStorage.getItem("latestOrder"));
+
+    if (!order) {
+        summaryBox.innerHTML = "<p>No order found.</p>";
+        return;
+    }
+
+    summaryBox.innerHTML = `
+        <p><strong>Name:</strong> ${order.name}</p>
+        <p><strong>Cake:</strong> ${order.cake}</p>
+        <p><strong>Weight:</strong> ${order.weight} kg</p>
+        <p><strong>Message:</strong> ${order.message || "None"}</p>
+        <p><strong>Delivery Date:</strong> ${order.date}</p>
+    `;
+}
+
+function sendToWhatsApp() {
+    const order = JSON.parse(localStorage.getItem("latestOrder"));
+    if (!order) return;
+
+    const phoneNumber = "918956161106"; // replace with cafe number
+
+    const message = 
+`Hello Club Cafe! 🍰
+I would like to place an order:
+
+Name: ${order.name}
+Cake: ${order.cake}
+Weight: ${order.weight} kg
+Message on Cake: ${order.message}
+Delivery Date: ${order.date}`;
+
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+}
+
