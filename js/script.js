@@ -99,7 +99,7 @@ function sendToWhatsApp() {
     const order = JSON.parse(localStorage.getItem("latestOrder"));
     if (!order) return;
 
-    const phoneNumber = "91XXXXXXXXXX"; // replace with real number
+    const phoneNumber = "918956161106"; // replace with real number
 
     const message = `Hello Club Cafe! 🍰
 I would like to place an order:
