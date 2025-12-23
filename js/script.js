@@ -1,5 +1,5 @@
 /* =========================
-   GENERAL UI FUNCTIONS
+   BASIC UI FUNCTIONS
 ========================= */
 
 function welcomeMessage() {
@@ -20,99 +20,75 @@ function openImage(img) {
 }
 
 /* =========================
-   NAVBAR (HAMBURGER MENU)
+   NAVBAR (HAMBURGER)
 ========================= */
 
 function toggleMenu() {
     const navLinks = document.getElementById("navLinks");
-    if (!navLinks) return;
-
-    navLinks.classList.toggle("show");
+    if (navLinks) {
+        navLinks.classList.toggle("show");
+    }
 }
 
-// CLOSE MENU WHEN ANY LINK IS CLICKED (MOBILE FIX)
-document.addEventListener("click", function (e) {
-    const navLinks = document.getElementById("navLinks");
-    const hamburger = document.querySelector(".hamburger");
-
-    if (!navLinks || !hamburger) return;
-
-    if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
-        navLinks.classList.remove("show");
-    }
-});
-
-
 /* =========================
-   MAIN LOGIC (RUNS ON LOAD)
+   ORDER FORM + SUMMARY
+   (DESKTOP WORKING VERSION)
 ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
- document.addEventListener("DOMContentLoaded", () => {
+    /* ---------- ORDER FORM ---------- */
+    const form = document.getElementById("orderForm");
 
-    const orderForm = document.getElementById("orderForm");
-    if (!orderForm) return;
+    if (form) {
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
 
-    orderForm.addEventListener("submit", function () {
+            const order = {
+                name: document.getElementById("customerName").value.trim(),
+                cake: document.getElementById("cakeName").value,
+                weight: document.getElementById("weight").value,
+                message:
+                    document.getElementById("message").value.trim() || "None",
+                date: document.getElementById("date").value
+            };
 
-        const name = document.getElementById("customerName").value.trim();
-        const cake = document.getElementById("cakeName").value;
-        const weight = document.getElementById("weight").value;
-        const message =
-            document.getElementById("message").value.trim() || "None";
-        const date = document.getElementById("date").value;
+            localStorage.setItem("latestOrder", JSON.stringify(order));
 
-        // Validation (browser will also enforce required fields)
-        if (!name || !cake || !date) {
-            alert("Please fill all required fields.");
-            return false;
+            // DESKTOP-WORKING REDIRECT
+            window.location.href = "order-summary.html";
+        });
+    }
+
+    /* ---------- ORDER SUMMARY ---------- */
+    const summaryBox = document.getElementById("summaryBox");
+
+    if (summaryBox) {
+        const order = JSON.parse(localStorage.getItem("latestOrder"));
+
+        if (!order) {
+            summaryBox.innerHTML = "<p>No order found.</p>";
+            return;
         }
 
-        const order = {
-            name,
-            cake,
-            weight,
-            message,
-            date
-        };
-
-        localStorage.setItem("latestOrder", JSON.stringify(order));
-
-        // IMPORTANT:
-        // Do NOT prevent default
-        // Let browser redirect naturally
-    });
+        summaryBox.innerHTML = `
+            <p><strong>Name:</strong> ${order.name}</p>
+            <p><strong>Cake:</strong> ${order.cake}</p>
+            <p><strong>Weight:</strong> ${order.weight} kg</p>
+            <p><strong>Message:</strong> ${order.message}</p>
+            <p><strong>Delivery Date:</strong> ${order.date}</p>
+        `;
+    }
 });
 
-
-
 /* =========================
-   WHATSAPP ORDER REDIRECT
+   WHATSAPP REDIRECT
 ========================= */
 
 function sendToWhatsApp() {
     const order = JSON.parse(localStorage.getItem("latestOrder"));
-    if (!order) {
-        alert("No order found.");
-        return;
-    }
+    if (!ord
 
-    const phoneNumber = "918956161106";
-
-    const message =
-`Hello Club Cafe!
-Name: ${order.name}
-Cake: ${order.cake}
-Weight: ${order.weight} kg
-Message: ${order.message}
-Delivery Date: ${order.date}`;
-
-    const encoded = encodeURIComponent(message);
-    const url = `https://wa.me/${phoneNumber}?text=${encoded}`;
-
-    window.location.assign(url);
-}
 
 
 
