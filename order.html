@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Cake - Club Cafe</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-top">
+        <h1 class="logo">Club Cafe</h1>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </div>
+
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="order.html" class="active">Order</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <h2>Order Your Cake</h2>
+
+    <div class="card">
+        <form id="orderForm">
+            <label>Customer Name</label>
+            <input type="text" id="customerName" required>
+
+            <label>Select Cake</label>
+            <select id="cakeName" required>
+                <option value="">-- Choose a Cake --</option>
+                <option>Classic Black Forest</option>
+                <option>Red Velvet Delight</option>
+                <option>Chocolate Truffle</option>
+                <option>Pineapple Fresh Cream</option>
+            </select>
+
+            <label>Weight (kg)</label>
+            <select id="weight">
+                <option>0.5</option>
+                <option>1</option>
+                <option>2</option>
+            </select>
+
+            <label>Message on Cake</label>
+            <input type="text" id="message">
+
+            <label>Delivery Date</label>
+            <input type="date" id="date" required>
+
+            <button type="submit" class="primary-btn">Place Order</button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    © 2025 Club Cafe
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
